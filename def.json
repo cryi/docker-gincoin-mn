@@ -1,0 +1,8 @@
+{
+    "version" : 0.13,
+    "update-node": "tools/update-node.sh",
+    "fs-permissions": "tools/fs-permissions.sh",
+    "node-info": "tools/node-info.sh",
+    "set-param": "tools/set-param.sh",
+    "required-ams-version" : 0
+}
