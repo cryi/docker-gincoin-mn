@@ -18,18 +18,10 @@
 #
 #  Contact: cryi@tutanota.com
 
-get_latest_github_release() {
-    GIT_INFO=$(curl -sL "https://api.github.com/repos/$1/releases/latest")
-    get_json_value "$GIT_INFO" "tag_name"                                           
-    RESULT=$JSON_VALUE                             
-} 
+GIT_INFO=$(curl -sL "https://api.github.com/repos/GIN-coin/gincoin-core/releases/latest")                                       
+URL=$(printf "%s\n" "$GIT_INFO" | jq .assets[].browser_download_url -r | grep binaries | grep linux | grep 64bit)                         
 
-get_json_value() {
-    JSON_VALUE=$(echo "$1" | jq ".[\"$2\"]" -r)
-}
-
-get_latest_github_release "GIN-coin/gincoin-core"
-curl -L "https://github.com/GIN-coin/gincoin-core/releases/download/$RESULT/gincoin-binaries-linux-64bit.tar.gz" -o ./gincoin.tar.gz
+curl -L "$URL" -o ./gincoin.tar.gz
 
 tar -xzvf ./gincoin.tar.gz
 cp -f ./gincoin-binaries/gincoind .

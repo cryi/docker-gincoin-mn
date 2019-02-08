@@ -31,11 +31,11 @@ DIRS=\
     ]
 }'
 
-echo "Configuring access permissions for UID: $INNER_UID"
-for row in $(echo "$DIRS" | jq -r '.writable[]'); do
-    echo "Setting permission for path: $BASEDIR/../$row"
-    chown -R $INNER_UID:$INNER_UID "$BASEDIR/../$row" && echo "Access permission to '$row' set to uid $INNER_UID."
-done
 chmod +x "$BASEDIR/../gincoin-cli"
 chmod +x "$BASEDIR/"*.sh
+echo "Configuring access permissions for UID: $INNER_UID"
+for row in $(printf "%s\n" "$DIRS" | jq -r '.writable[]'); do
+    echo "Setting permission for path: $BASEDIR/../$row"
+    chown -R $INNER_UID:ams "$BASEDIR/../$row" && echo "Access permission to '$row' set to uid $INNER_UID."
+done
 exit $?
