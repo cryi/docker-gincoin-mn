@@ -21,10 +21,29 @@
 GIT_INFO=$(curl -sL "https://api.github.com/repos/GIN-coin/gincoin-core/releases/latest")                                       
 URL=$(printf "%s\n" "$GIT_INFO" | jq .assets[].browser_download_url -r | grep binaries | grep linux | grep 64bit)                         
 
-curl -L "$URL" -o ./gincoin.tar.gz
+if [ -f "./limits.conf" ]; then 
+    if grep "NODE_BINARY=" "./limits.conf"; then 
+        NODE_BINARY=$(grep "NODE_BINARY=" "./limits.conf" | sed 's/NODE_BINARY=//g')
+        if [ -n "$NODE_BINARY" ] && [ ! "$NODE_BINARY" = "auto" ]; then
+            URL=$NODE_BINARY
+        fi
+    fi
+fi
 
-tar -xzvf ./gincoin.tar.gz
-cp -f ./gincoin-binaries/gincoind .
-cp -f ./gincoin-binaries/gincoin-cli .
-rm -rf ./gincoin-binaries
-rm -f ./gincoin.tar.gz
+FILE=gincoin
+
+case "$URL" in
+    *.tar.gz) 
+        curl -L "$URL" -o "./$FILE.tar.gz"
+        tar -xzvf "./$FILE.tar.gz"
+        rm -f "./$FILE.tar.gz"
+    ;;
+    *.zip)
+        curl -L "$URL" -o "./$FILE.zip"
+        unzip "./$FILE.zip"
+        rm -f "./$FILE.zip"
+    ;;
+esac
+
+cp -f "$(find . -name gincoind)" .
+cp -f "$(find . -name gincoin-cli)" .

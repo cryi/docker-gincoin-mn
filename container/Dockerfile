@@ -41,6 +41,7 @@ WORKDIR /home/gin/
 COPY get-node.sh ./get-node.sh
 COPY get-node-info.sh ./get-node-info.sh
 COPY get-version.sh ./get-version.sh
+COPY limits.conf ./limits.conf
 
 # set execution rights
 RUN chmod +x ./get-node.sh ./get-node-info.sh ./get-version.sh

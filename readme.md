@@ -5,7 +5,7 @@ Docker template for GINCOIN Masternode.
 
 GIN Donations: `GNSysXfThymKMSTKRaP7Nc1TLK3RkVbxuM`
 
-[Quickstart Guide](https://github.com/cryi/docker-gin-sn/wiki/Quickstart---AMS)
+[Quickstart Guide](https://github.com/cryi/docker-gin-mn/wiki/Quickstart---AMS)
 
 ## Prerequisites 
 

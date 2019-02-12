@@ -20,9 +20,11 @@
 
 BASEDIR=$(dirname "$0")
 container=$(docker-compose -f "$BASEDIR/../docker-compose.yml" ps -q mn 2> /dev/null)
+TEMPLATE_VERSION=$(jq .version "$BASEDIR/../def.json")
 STATUS="NOT RUNNING"
 if [ -z "$container" ]; then 
     printf "STATUS: %s\n" "$STATUS"
+    printf "TEMPLATE VERSION: %s\n" "$TEMPLATE_VERSION"
     exit
 fi
 docker exec "$container" /home/gin/get-node-info.sh
@@ -31,3 +33,4 @@ if [ -z "$STATUS" ]; then
     STATUS="NOT RUNNING"
 fi
 printf "STATUS: %s\n" "$STATUS"
+printf "TEMPLATE VERSION: %s\n" "$TEMPLATE_VERSION"

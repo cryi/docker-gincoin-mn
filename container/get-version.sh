@@ -18,6 +18,5 @@
 #
 #  Contact: cryi@tutanota.com
 
-ver=$(/usr/sbin/gincoind -version | grep "Gincoin Core Daemon version v" | \
-    sed "s/Gincoin Core Daemon version v//" |  sed "s/-.*//")
+ver=$(/usr/sbin/gincoind -version | grep "Gincoin Core Daemon version v" | sed "s/Gincoin Core Daemon version v//" |  sed "s/-.*//")
 printf "%s" "$ver"
